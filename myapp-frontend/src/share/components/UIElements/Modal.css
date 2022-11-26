@@ -1,0 +1,35 @@
+.modal {
+  z-index: 100;
+  position: fixed;
+  top: 18vh;
+  left: 10%;
+  width: 80%;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 8px;
+  left: calc(50% - 20rem);
+    width: 40rem;
+}
+
+.modal__header {
+  
+  background: #191818;
+  color: white;
+  padding-bottom: 2%;
+  padding-bottom: 2%;
+}
+
+.modal__header h2 {
+  margin-top:0px;
+  margin-bottom: 0px;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.modal__content {
+  padding: 1rem 0.5rem;
+}
+
+.modal__footer {
+  padding: 1rem 0.5rem;
+}

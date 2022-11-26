@@ -1,0 +1,39 @@
+.user-item {
+    margin: 1rem;
+    width: calc(25% - 2rem);
+    min-width: 17.5rem;
+  }
+  
+  .user-item a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    padding: 1rem;
+    color: white;
+    background: #474646;
+  }
+  
+  .user-item a:hover,
+  .user-item a:active {
+    background: #212121;
+  }
+  
+  .user-item__content {
+    padding: 0;
+  }
+  
+  .user-item__image {
+    width: 5rem;
+    height: 5rem;
+    margin-right: 1rem;
+  }
+  
+  .user-item__info h2 {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: normal;
+    color: #fbfaf2;
+  }
+  
