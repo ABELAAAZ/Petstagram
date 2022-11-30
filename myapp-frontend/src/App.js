@@ -13,12 +13,11 @@ import { AuthContext } from './share/context/auth-context';
 import { useAuth } from './share/hooks/auth-hook';
 import LoadingSpinner from './share/components/UIElements/LoadingSpinner';
 
-
-
 const App = () => {
   const { token, login, logout, userId } = useAuth();
   let routes;
   if (token) {
+    console.log('first,',token)
     routes = (
       <Switch>
         <Route path="/" exact>
@@ -30,28 +29,30 @@ const App = () => {
         <Route path="/posts/new" exact>
           <NewPost />
         </Route>
-        <Route path="/posts/:postId/update">
-          <UpdatePost />
-        </Route>
-        <Route path="/posts/:postId">
+
+        <Route path="/posts/:postId" exact>
           <PostDetail />
         </Route>
+
+        <Route path="/posts/:postId/update" exact>
+          <UpdatePost />
+        </Route>
+
         <Redirect to="/" />
       </Switch>
     );
+
   } else {
+    console.log('second,',token)
     routes = (
       <Switch>
         <Route path="/" exact>
           <Users />
         </Route>
-        <Route path="/:userId/posts" exact>
-          <UserPosts />
-        </Route>
-        <Route path="/auth">
+        <Route path="/auth ">
           <Auth />
         </Route>
-        <Redirect to="/auth" />
+        <Redirect to="/auth " />
       </Switch>
     );
   }

@@ -55,8 +55,6 @@ const createPost = async (req, res, next) => {
         next(new HttpError('Invalid input,check again', 422));
     }
     const { title, description, address } = req.body; // const title =req.body.title
-
-    console.log(req.userData.userId,req.file.path)
     let coordinates;
     try {
         coordinates = await getCoordsForAddress(address);
@@ -74,6 +72,7 @@ const createPost = async (req, res, next) => {
         creator:req.userData.userId,
         comments:[]
     });
+
     let user;
     try {
         user = await User.findById(req.userData.userId);
@@ -87,7 +86,6 @@ const createPost = async (req, res, next) => {
         const error = new HttpError('We could not find user', 404);
         return next(error);
     }
-    console.log(user);
 
     try {
         const sess= await mongoose.startSession();

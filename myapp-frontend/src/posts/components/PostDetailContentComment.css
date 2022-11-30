@@ -74,5 +74,40 @@
   }
 
   .center{
-    margin-top: 5rem;
+    margin-top: 0.2rem;
   }
+
+.comment-item{
+  width:58%;
+  margin-bottom:2rem;
+  position: relative;  
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 26%);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.comment-title{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.comment-title  a{
+  text-decoration: none;
+  color: black;
+}
+
+.comment-name{
+  font-size:1.5em;
+}
+.comment-content{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size:1.2em;
+}
+.comment-time{
+  color:rgb(144, 143, 143)
+}

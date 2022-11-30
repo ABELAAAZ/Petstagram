@@ -8,6 +8,7 @@ const app = express();
 
 const postsRoutes = require('./routes/posts-routes');
 const usersRoutes = require('./routes/users-routes');
+const commentsRoutes = require('./routes/comments-routes');
 const HttpError = require('./models/http-errors');
 const path =require('path');
 
@@ -41,8 +42,9 @@ app.use(bodyParser.json());
 app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 
-app.use('/api/posts', postsRoutes);  // =>/api/posts/sth
-app.use('/api/users', usersRoutes);  // =>/api/posts/sth
+app.use('/api/posts', postsRoutes);  
+app.use('/api/users', usersRoutes);  
+app.use('/api/comments', commentsRoutes);  
 
 app.use((req, res, next) => {
     const error = new HttpError('could not find the route', 404);

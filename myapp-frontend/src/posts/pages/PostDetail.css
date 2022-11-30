@@ -4,3 +4,43 @@
   justify-content: center;
   align-items: center;
 }
+
+
+.center{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comment-form{
+  width:100%;
+  margin-bottom:2rem;
+  position: relative;  
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 26%);
+  background: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-form input{
+ width:40rem;
+ height:1.8rem;
+}
+.comment-form button{
+  margin-top:0.2rem;
+ }
+
+ .comment-list{
+  width:100%;
+  margin-bottom:2rem;
+  position: relative;  
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 26%);
+  background: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+ }

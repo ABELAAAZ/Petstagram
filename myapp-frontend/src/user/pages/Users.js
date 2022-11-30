@@ -15,7 +15,7 @@ const Users = () => {
                 const responseData = await sendRequest(`http://localhost:4000/api/users`);
                 setLoadedUsers(responseData.user);            
             } catch (err) {         
-            }       
+            } 
         };
         fetchUsers();
     }, [sendRequest]);

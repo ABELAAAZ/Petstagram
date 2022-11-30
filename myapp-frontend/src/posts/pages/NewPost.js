@@ -47,7 +47,7 @@ const NewPost = () => {
       formData.append('description', formState.inputs.description.value);
       formData.append('address', formState.inputs.address.value);
       formData.append('image', formState.inputs.image.value);
-    
+      console.log(formData)
       await sendRequest(`http://localhost:4000/api/posts`, 'POST', formData,{Authorization:'Bearer '+auth.token});
       history.push(`/${auth.userId}/posts` );
     } catch (err) { }

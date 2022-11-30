@@ -33,7 +33,7 @@ const UpdatePost = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const responseData = await sendRequest(`http://localhost:4000/api/posts/${postId}`);
+                const responseData = await sendRequest(`http://localhost:4000/api/posts/${postId}`,'GET', null, { Authorization: 'Bearer ' + auth.token });
                 console.log({ responseData })
                 setLoadedPosts(responseData.post);
 
