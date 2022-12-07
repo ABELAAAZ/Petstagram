@@ -15,3 +15,15 @@
   background: #868583;
   border-color: #fcfafb;
 }
+
+.button--follow {
+  background-color: dodgerblue;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+}
+
+.button--follow:hover {
+  background: lightskyblue;
+  border-color: #fcfafb;
+}
