@@ -9,8 +9,10 @@ const UserPosts = () => {
   const auth = useContext(AuthContext);
   const [loadedPosts, setLoadedPosts] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  
+
+
   const userId = useParams().userId;
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -35,7 +37,7 @@ const UserPosts = () => {
       <ErrorModal error={error} onClear={clearError} />
 
       <h1 className='user-name'>{userId}</h1>
-      
+
       {!isLoading && loadedPosts && (
         <PostList items={loadedPosts} onDeletePost={postDeletedHandler} />
       )}

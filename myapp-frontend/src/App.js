@@ -6,7 +6,10 @@ import Users from './user/pages/Users';
 import NewPost from './posts/pages/NewPost';
 import UpdatePost from './posts/pages/UpdatePost';
 import UserPosts from './posts/pages/UserPosts';
+import Trends from './posts/pages/Trends';
+// import SearchForm from './posts/pages/SearchForm';
 import PostDetail from './posts/pages/PostDetail';
+
 import Auth from './user/pages/Auth';
 import MainNavigation from './share/components/Navigation/MainNavigation';
 import { AuthContext } from './share/context/auth-context';
@@ -21,6 +24,9 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
+          <Trends />
+        </Route>
+        <Route path="/:userId/following" exact>
           <Users />
         </Route>
         <Route path="/:userId/posts" exact>
@@ -29,7 +35,6 @@ const App = () => {
         <Route path="/posts/new" exact>
           <NewPost />
         </Route>
-
         <Route path="/posts/:postId" exact>
           <PostDetail />
         </Route>
@@ -47,7 +52,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <Users />
+          <Trends />
         </Route>
         <Route path="/auth ">
           <Auth />

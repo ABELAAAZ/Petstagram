@@ -1,4 +1,3 @@
-
 import React, { useReducer, useEffect } from "react";
 import { validate } from '../../util/validators';
 import './Input.css';
@@ -51,16 +50,16 @@ const Input = props => {
 
     const element = props.element === 'input' ? (
         <input id={props.id}
-            type={props.type}
-            placeholder={props.placeholder}
-            onChange={changeHandler}
-            onBlur={touchHandler}
-            value={inputState.value} />) : (
+               type={props.type}
+               placeholder={props.placeholder}
+               onChange={changeHandler}
+               onBlur={touchHandler}
+               value={inputState.value} />) : (
         <textarea id={props.id}
-            rows={props.rows || 3}
-            onChange={changeHandler}
-            onBlur={touchHandler}
-            value={inputState.value} />);
+                  rows={props.rows || 3}
+                  onChange={changeHandler}
+                  onBlur={touchHandler}
+                  value={inputState.value} />);
 
 
 

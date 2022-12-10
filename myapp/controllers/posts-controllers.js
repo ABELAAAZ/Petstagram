@@ -7,6 +7,18 @@ const fs =require('fs');
 const { default: mongoose } = require('mongoose');
 
 
+// find all posts
+const getPosts = async (req, res, next) => {
+    let posts;
+    try {
+        posts = await Post.find({}, '-password');
+    } catch (err) {
+        const error = new HttpError('fetching failed, try again', 500);
+        return next(error);
+    }
+    res.json({ post: posts.map(post => post.toObject({ getters: true })) });
+};
+
 // find a post by post id
 const getPostById = async (req, res, next) => {
     const postId = req.params.pid;
@@ -30,7 +42,7 @@ const getPostById = async (req, res, next) => {
 
 // find posts by user id
 const getpostsByUserId = async (req, res, next) => {
-    const userId = req.params.uid;
+    const userId = req.params.pid;
     let posts;
     try {
         posts = await Post.find({ creator: userId });
@@ -62,13 +74,13 @@ const createPost = async (req, res, next) => {
         const error = new HttpError('coordinate failed', 422);
         return next(error);
     }
-    
+
     const createdPost = new Post({
         title,
         description,
         address,
         location: coordinates,
-        image: req.file.path ,
+        image: req.file.path,
         creator:req.userData.userId,
         comments:[]
     });
@@ -125,7 +137,7 @@ const updatePostbyId = async (req, res, next) => {
         const error =new HttpError('You are not allowed to edit this post',401);
         return next(error);
     };
-    
+
     post.title = title;
     post.description = description;
 
@@ -166,7 +178,7 @@ const imagePath=post.image;
         const sess =await mongoose.startSession();
         sess.startTransaction();
         await  post.remove({session:sess});
-        post.creator.posts.pull(post);  
+        post.creator.posts.pull(post);
         await post.creator.save({session:sess});
         await sess.commitTransaction();
     } catch (err) {
@@ -179,7 +191,7 @@ const imagePath=post.image;
     res.status(200).json({ message: "delete successful" });
 };
 
-
+exports.getPosts = getPosts;
 exports.getpostsByUserId = getpostsByUserId;
 exports.getPostById = getPostById;
 exports.createPost = createPost;

@@ -5,7 +5,6 @@ import PostItem from './PostItem'
 import Button from '../../share/components/FormElements/Button';
 import './PostList.css';
 const PostList = props => {
-  console.log('enter my post');
   if (props.items.length === 0) {
     return (
       <div className="post-list center">
@@ -17,25 +16,51 @@ const PostList = props => {
     );
   }
 
+  if (props.order === 'ascending'){
+    if (props.sort === 'date'){
+      props.items.sort((a, b) => (a.dateCreated > b.dateCreated) ? 1 : -1);
+    }
+    else if (props.sort === 'title'){
+      props.items.sort((a, b) => (a.title > b.title) ? 1 : -1);
+    }
+    else if (props.sort === 'comments'){
+      props.items.sort((a, b) => (a.comments.length > b.comments.length) ? 1 : -1);
+    }
+
+  }
+  else if ((props.order === 'descending')){
+    if (props.sort === 'date'){
+      props.items.sort((a, b) => (a.dateCreated > b.dateCreated) ? -1 : 1);
+    }
+    else if (props.sort === 'title'){
+      props.items.sort((a, b) => (a.title > b.title) ? -1 : 1);
+    }
+    else if (props.sort === 'comments'){
+      props.items.sort((a, b) => (a.comments.length > b.comments.length) ? -1 : 1);
+    }
+
+  }
+
   return (
-  
-    <ul className="post-list">
-      {props.items.map(post => (
-        <PostItem
-          key={post.id}
-          id={post.id}
-          image={post.image}
-          title={post.title}
-          description={post.description}
-          address={post.address}
-          creatorId={post.creator}
-          coordinates={post.location}
-          onDelete={props.onDeletePost}
-        />
-      ))}
-    </ul>
-    
+      <ul className="post-list">
+        {props.items.map(post => (
+            <PostItem
+                key={post.id}
+                id={post.id}
+                image={post.image}
+                title={post.title}
+                description={post.description}
+                address={post.address}
+                creatorId={post.creator}
+                coordinates={post.location}
+                onDelete={props.onDeletePost}
+            />
+        ))}
+      </ul>
+
   );
+
+
 };
 
 export default PostList;

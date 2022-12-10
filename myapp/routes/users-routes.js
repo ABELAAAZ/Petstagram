@@ -2,9 +2,14 @@ const express = require('express');
 const usersControllers = require('../controllers/users-controllers');
 const { check } = require('express-validator');
 const fileUpload = require('../middleware/file-upload');
+const postsControllers = require("../controllers/posts-controllers");
 const router = express.Router();
 
 router.get('/', usersControllers.getUsers);
+
+router.get('/:id', usersControllers.getUserById);
+
+router.get('/user/:uid', usersControllers.getFollowingsByUserId);
 
 router.post('/signup',
     fileUpload.single('image'),

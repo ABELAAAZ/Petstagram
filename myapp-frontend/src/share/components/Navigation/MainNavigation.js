@@ -25,7 +25,7 @@ const MainNavigation = props => {
                             <NavLink to="/" exact> Trending</NavLink>
                         </li>
                         {auth.isLoggedIn && (<li>
-                            <NavLink to="/" exact> Following</NavLink>
+                            <NavLink to={`/${auth.userId}/following`}> Following</NavLink>
                         </li>)}
 
                         {auth.isLoggedIn && (<li>
