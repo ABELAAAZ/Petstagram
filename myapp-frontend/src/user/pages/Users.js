@@ -6,6 +6,7 @@ import { useHttpClient } from '../../share/hooks/http-hook';
 import ErrorModal from '../../share/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../share/components/UIElements/LoadingSpinner';
 // import "bootstrap/dist/css/bootstrap.min.css";
+import './Users.css'
 
 
 const Users = () => {
@@ -43,19 +44,13 @@ const Users = () => {
               <LoadingSpinner />
             </div>
           )}
-            <div className="container">
-                <form className="form-inline">
-                    <div className="row justify-content-md-center">
-                        <div className="col-7 ">
-                            <label htmlFor="exampleFormControlSelect1">Search by Username:</label>
-                            <div className="input-group input-group-sm mb-3">
-                                <input type="text" className="form-control" aria-label="Small"
-                                       aria-describedby="inputGroup-sizing-sm"
-                                       onChange={inputHandler}/>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+            <div class="form-center">
+                <label>Search by Username: </label>
+                <div/>
+                    {/* <input type="text" className="form-control" aria-label="Small"
+                            aria-describedby="inputGroup-sizing-sm"
+                            onChange={inputHandler}/> */}
+                    <input type="text" id="fname" name="firstname" onChange={inputHandler}/>
             </div>
             {loadedUsers && <UsersList items={loadedUsers} input={inputText}/>}
         </React.Fragment>

@@ -5,6 +5,7 @@ import { AuthContext } from '../../share/context/auth-context';
 import { useHttpClient } from '../../share/hooks/http-hook';
 import ErrorModal from '../../share/components/UIElements/ErrorModal';
 import './UserPosts.css'
+import './Trends.css'
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -43,42 +44,34 @@ const UserPosts = () => {
     return (
         <React.Fragment>
             <ErrorModal error={error} onClear={clearError} />
-            <div className="container">
-                <form className="form-inline">
-                    <div className="row justify-content-md-center">
-                        <div className="col-7">
-                            <div className="form-group">
-                                <label htmlFor="exampleFormControlSelect1">Sort by:</label>
-                                <select className="form-control form-control-sm" onChange={handleSort}>
-                                    <option  value="date">Date</option>
-                                    <option  value="title">Title</option>
-                                    <option  value="comments">Comments</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row justify-content-md-center">
-                        <div className="col-7">
-                            <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions"
-                                       id="inlineRadio1" value="ascending"
-                                       onChange={e => {
-                                           setOrder(e.target.value)
-                                       }}/>
-                                <label className="form-check-label" htmlFor="inlineRadio1">Ascending</label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions"
-                                       id="inlineRadio2" value="descending"
-                                       onChange={e => {
-                                           setOrder(e.target.value)
-                                       }}/>
-                                <label className="form-check-label" htmlFor="inlineRadio2">Descending</label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                <div class="form-center">
+                    <label>Sort by:</label>
+                    <select onChange={handleSort}>
+                        <option  value="date">Date</option>
+                        <option  value="title">Title</option>
+                        <option  value="comments">Comments</option>
+                    </select>
+
+                    <div/>
+            
+                    <input type="radio" name="inlineRadioOptions"
+                            id="inlineRadio1" value="ascending"
+                            onChange={e => {
+                                setOrder(e.target.value)
+                            }}/>
+                    <label>Ascending</label>
+
+                    <div/>
+
+                    <input type="radio" name="inlineRadioOptions"
+                            id="inlineRadio2" value="descending"
+                            onChange={e => {
+                                setOrder(e.target.value)
+                            }}/>
+                    <label >Descending</label>
+
+                </div>
+        
             {!isLoading && loadedPosts && (
                 <PostList items={loadedPosts} sort = {sort} order = {order} onDeletePost={postDeletedHandler} />
             )}

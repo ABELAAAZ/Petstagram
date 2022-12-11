@@ -1,12 +1,12 @@
 .form-center {
-  width:400px;
-  margin: 0 auto;
-}
+    width:400px;
+    margin: 0 auto;
+  }
 
-select {
+input[type=text] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: vertical;
-}
+  }
