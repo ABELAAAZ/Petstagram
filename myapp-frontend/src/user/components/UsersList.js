@@ -28,20 +28,19 @@ const UsersList = props => {
         }
     })
 
-    return (
-        <ul className="users-list">
-          {filteredUser.map(user => (
-            <UserItem
-              key={user.id}
-              id={user.id}
-              image={user.image}
-              name={user.name}
-              postCount={user.posts.length}
-            />
-          ))}
-        </ul>
-      );
-
+  return (
+    <ul className="users-list">
+      {filteredUser.items.map((user) => (
+        <UserItem
+          key={user.id}
+          id={user.id}
+          image={user.image}
+          name={user.name}
+          postCount={user.posts.length}
+        />
+      ))}
+    </ul>
+  );
 };
 
 export default UsersList;

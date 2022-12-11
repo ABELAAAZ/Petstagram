@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import Card from '../../share/components/UIElements/Card';
 import PostItem from './PostItem'
