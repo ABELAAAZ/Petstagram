@@ -9,19 +9,19 @@ const router = express.Router();
 
 router.get('/', postsControllers.getPosts);
 
+router.use(checkAuth);
+
 router.get('/:pid', postsControllers.getPostById);
 
-router.get('/user/:pid', postsControllers.getpostsByUserId);
+router.get('/user/:uid', postsControllers.getpostsByUserId);
 
 router.post('/:pid/comment',[check('comment').isLength({ min: 2 })],commentsControllers.createComment);
 
 router.post('/', fileUpload.single('image'),[check('title').not().isEmpty(),
-    check('description').isLength({ min: 5 }),
-    check('address').not().isEmpty()],postsControllers.createPost);
+check('description').isLength({ min: 5 }),
+check('address').not().isEmpty()],postsControllers.createPost);
 
 router.patch('/:pid', [check('title').not().isEmpty(),check('description').isLength({ min: 5 })],postsControllers.updatePostbyId);
 router.delete('/:pid', postsControllers.deletePostbyId);
-
-
 
 module.exports = router;

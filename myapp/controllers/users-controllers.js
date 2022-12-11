@@ -48,52 +48,6 @@ const getFollowingsByUserId = async (req, res, next) => {
     res.json({ user: users.map(post => post.toObject({ getters: true })) });
 };
 
-// // get user by id
-const getUserById = async (req, res, next) => {
-    let user;
-    try {
-        user = await User.findById(req.params.id, '-password');
-    } catch (err) {
-        const error = new HttpError('fetching failed, try again', 500);
-        return next(error);
-    }
-    res.json({ "user": user.toObject({ getters: true }) });
-};
-
-// find followings by userid
-const getFollowingsByUserId = async (req, res, next) => {
-    let user;
-    let users;
-    try {
-        user = await User.findById(req.params.uid);
-        users = await User.find({'_id': { $in: user.following}}, '-password');
-        // users = await User.find({}, '-password');
-    }
-    catch (err) {
-        const error = new HttpError('Fetching went wrong, try again', 500);
-        return next(error);
-    }
-    if (!users || users.length === 0) {
-        return next(
-            new HttpError('Could not find the followings of this user', 404));
-    }
-    res.json({ user: users.map(post => post.toObject({ getters: true })) });
-};
-
-
-
-// get user by id
-const getUserById = async (req, res, next) => {
-  const userId = req.params.uid;
-  let user;
-  try {
-    user = await User.findById(userId);
-  } catch (err) {
-    const error = new HttpError("Something went wrong, please try again", 500);
-    return next(error);
-  }
-  res.json({ user: user });
-};
 
 // sign up
 const signup = async (req, res, next) => {

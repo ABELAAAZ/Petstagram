@@ -22,4 +22,5 @@ router.post("/login", usersControllers.login);
 
 router.patch("/:uid/follow/:fid", usersControllers.updateUserFollowingById);
 
+
 module.exports = router;

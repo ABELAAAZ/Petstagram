@@ -201,6 +201,7 @@ const deletePostbyId = async (req, res, next) => {
   res.status(200).json({ message: "delete successful" });
 };
 
+exports.getPosts = getPosts;
 exports.getpostsByUserId = getpostsByUserId;
 exports.getPostById = getPostById;
 exports.createPost = createPost;
