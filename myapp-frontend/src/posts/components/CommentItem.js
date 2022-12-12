@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
-
+import moment from 'moment';
 import { useHttpClient } from "../../share/hooks/http-hook";
 import { AuthContext } from "../../share/context/auth-context";
 import ErrorModal from "../../share/components/UIElements/ErrorModal";
@@ -11,7 +11,7 @@ const CommentItem = (props) => {
   const comment = props.item;
   const creator = props.creator;
   const auth = useContext(AuthContext);
-  //const navigate=useNavigate()
+  
   const history = useHistory({ forceRefresh: true });
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [commentUserName, setcommentUserName] = useState();
@@ -24,7 +24,7 @@ const CommentItem = (props) => {
         null,
         { Authorization: "Bearer " + auth.token }
       );
-      history.push(`/${auth.userId}/posts`, { update: true });
+      await props.delete()
       //window.location.reload();
     } catch (err) {}
   };
@@ -55,9 +55,9 @@ const CommentItem = (props) => {
               <div className="comment-name">{commentUserName}</div>
             </Link>
           )}
-          <div className="comment-time"> {comment.dateCreated} </div>
+          <div className="comment-time"> {moment(comment.dateCreated).format('h:mm A DD/MM/YYYY')} </div>
           {auth.isLoggedIn && comment.creator === auth.userId && (
-            <Button danger onClick={confirmDeleteHandler}>
+            <Button danger onClick={confirmDeleteHandler}>    
               Delete
             </Button>
           )}

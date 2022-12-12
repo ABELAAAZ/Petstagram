@@ -6,6 +6,7 @@ import { useHttpClient } from "../../share/hooks/http-hook";
 import Button from "../../share/components/FormElements/Button";
 import Map from "../../share/components/UIElements/Map";
 import { AuthContext } from "../../share/context/auth-context";
+import moment from 'moment';
 import "./PostDetailContentComment.css";
 
 const PostDetailContent = (props) => {
@@ -72,7 +73,7 @@ const PostDetailContent = (props) => {
       <Card className="post-item__content">
         <div className="post-item__image">
           <img
-            src={`http://localhost:4000/${props.item.image}`}
+            src={`${props.item.image}`}
             alt={props.item.title}
           />
         </div>
@@ -80,7 +81,8 @@ const PostDetailContent = (props) => {
           <h2>{props.item.title}</h2>
 
           <p>{props.item.description}</p>
-          <h5>{props.item.address}</h5>
+          <h5>{props.item.address}<br/>{moment(props.item.dateCreated).format('h:mm A DD/MM/YYYY')}</h5>
+          
         </div>
         <div className="post-item__actions">
           <Button inverse onClick={openMapHandler}>

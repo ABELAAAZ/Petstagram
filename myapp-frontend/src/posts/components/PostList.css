@@ -2,8 +2,8 @@
   list-style: none;
   margin: 1rem auto;
   padding: 0;
-  width: 90%;
-  max-width: 100rem;
+  width: 90rem;
+ 
   display: flex;
   flex-wrap: wrap;
   align-content: center;

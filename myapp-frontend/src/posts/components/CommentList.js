@@ -30,6 +30,7 @@ const CommentList = (props) => {
             postId={props.postId}
             item={comment}
             creator={comment.creator}
+            delete={props.delete}
           />
         ))}
       </ul>
