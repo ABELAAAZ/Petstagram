@@ -16,33 +16,32 @@ import "./PostForm.css";
 import CloudinaryUploadWidget from "../../share/components/FormElements/CloudinaryUploadWidget";
 
 const NewPost = () => {
+  console.log("enter new post");
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [formState, inputHandler] = useForm(
+    {
+      title: {
+        value: "",
+        isValid: false,
+      },
+      description: {
+        value: "",
+        isValid: false,
+      },
+      address: {
+        value: "",
+        isValid: false,
+      },
+      image: {
+        value: null,
+        isValid: false,
+      },
+    },
+    false
+  );
 
-    console.log("enter new post");
-    const auth = useContext(AuthContext);
-    const { isLoading, error, sendRequest, clearError } = useHttpClient();
-    const [formState, inputHandler] = useForm(
-        {
-            title: {
-                value: "",
-                isValid: false,
-            },
-            description: {
-                value: "",
-                isValid: false,
-            },
-            address: {
-                value: "",
-                isValid: false,
-            },
-            image: {
-                value: null,
-                isValid: false,
-            },
-        },
-        false
-    );
-
-    const history = useHistory();
+  const history = useHistory();
 
   const postSubmitHandler = async (event) => {
     event.preventDefault();
@@ -52,7 +51,7 @@ const NewPost = () => {
       formData.append("description", formState.inputs.description.value);
       formData.append("address", formState.inputs.address.value);
       formData.append("image", formState.inputs.image.value);
-      console.log('frontend,formadata image',formState.inputs.image.value)
+      console.log("frontend,formadata image", formState.inputs.image.value);
       await sendRequest(`http://localhost:4000/api/posts`, "POST", formData, {
         Authorization: "Bearer " + auth.token,
       });
@@ -94,9 +93,9 @@ const NewPost = () => {
           center
           id="image"
           onInput={inputHandler}
-          errorText="Please upload a image"
+          errorText="Please upload a image."
         />
-        <CloudinaryUploadWidget/>
+        <CloudinaryUploadWidget />
         <Button type="submit" disabled={!formState.isValid}>
           SUBMIT
         </Button>
