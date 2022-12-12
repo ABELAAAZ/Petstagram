@@ -9,14 +9,14 @@ const { default: mongoose } = require("mongoose");
 
 // find all posts
 const getPosts = async (req, res, next) => {
-    let posts;
-    try {
-        posts = await Post.find({}, '-password');
-    } catch (err) {
-        const error = new HttpError('fetching failed, try again', 500);
-        return next(error);
-    }
-    res.json({ post: posts.map(post => post.toObject({ getters: true })) });
+  let posts;
+  try {
+    posts = await Post.find({}, "-password");
+  } catch (err) {
+    const error = new HttpError("fetching failed, try again", 500);
+    return next(error);
+  }
+  res.json({ post: posts.map((post) => post.toObject({ getters: true })) });
 };
 
 // find a post by post id
@@ -74,7 +74,7 @@ const createPost = async (req, res, next) => {
   try {
     coordinates = await getCoordsForAddress(address);
   } catch (err) {
-    const error = new HttpError("coordinate failed", 422);
+    const error = new HttpError("Entered address is invalid.", 422);
     return next(error);
   }
   console.log('image',req.file.location)

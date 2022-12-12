@@ -12,8 +12,9 @@
 }
 
 .button:hover {
-  background: #868583;
-  border-color: #fcfafb;
+  background: #f8df00;
+  border-color: white;
+  color: #292929;
 }
 
 .button--follow {
@@ -26,4 +27,14 @@
 .button--follow:hover {
   background: lightskyblue;
   border-color: #fcfafb;
+  color: white;
+}
+
+.button--disabled {
+  background: #868583;
+  pointer-events: none;
+}
+
+.button--disabled:hover {
+  pointer-events: none;
 }
