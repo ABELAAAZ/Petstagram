@@ -95,7 +95,6 @@ const NewPost = () => {
           onInput={inputHandler}
           errorText="Please upload a image."
         />
-        <CloudinaryUploadWidget />
         <Button type="submit" disabled={!formState.isValid}>
           SUBMIT
         </Button>
