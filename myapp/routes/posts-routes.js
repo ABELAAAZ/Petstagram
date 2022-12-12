@@ -17,7 +17,9 @@ router.get('/user/:uid', postsControllers.getpostsByUserId);
 
 router.post('/:pid/comment',[check('comment').isLength({ min: 2 })],commentsControllers.createComment);
 
-router.post('/', fileUpload.single('image'),[check('title').not().isEmpty(),
+router.post('/', 
+fileUpload.single('image'),
+[check('title').not().isEmpty(),
 check('description').isLength({ min: 5 }),
 check('address').not().isEmpty()],postsControllers.createPost);
 

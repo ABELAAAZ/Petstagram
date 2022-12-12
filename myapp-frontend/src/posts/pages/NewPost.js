@@ -16,6 +16,7 @@ import "./PostForm.css";
 import CloudinaryUploadWidget from "../../share/components/FormElements/CloudinaryUploadWidget";
 
 const NewPost = () => {
+
     console.log("enter new post");
     const auth = useContext(AuthContext);
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -95,6 +96,7 @@ const NewPost = () => {
           onInput={inputHandler}
           errorText="Please upload a image"
         />
+        <CloudinaryUploadWidget/>
         <Button type="submit" disabled={!formState.isValid}>
           SUBMIT
         </Button>
