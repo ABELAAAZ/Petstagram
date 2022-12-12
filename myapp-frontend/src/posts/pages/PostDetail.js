@@ -15,6 +15,8 @@ import { VALIDATOR_MINLENGTH } from "../../share/util/validators";
 const PostDetail = () => {
   const [loadedPosts, setLoadedPosts] = useState();
   const [loadedComments, setLoadedComments] = useState();
+  const [userFollowing, setUserFollowing] = useState();
+  const [loadedUser, setLoadedUser] = useState();
   const postId = useParams().postId;
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -36,6 +38,15 @@ const PostDetail = () => {
         );
         setLoadedPosts(responseData.post);
         setLoadedComments(responseComments.comments);
+
+        const responsePostCreator = await sendRequest(
+          `http://localhost:4000/api/users/${responseData.post.creator}`,
+          "GET",
+          null,
+          { Authorization: "Bearer " + auth.token }
+        );
+        setLoadedUser(responsePostCreator.user);
+        console.log(responsePostCreator.user);
       } catch (err) {}
     };
     fetchPosts();
@@ -71,6 +82,34 @@ const PostDetail = () => {
     } catch (err) {}
   };
 
+  const userFollowingHandler = async (event) => {
+    event.preventDefault();
+    try {
+      const following = await sendRequest(
+        `http://localhost:4000/api/users/${auth.userId}/follow/${loadedUser._id}`,
+        "PATCH",
+        null,
+        { Authorization: "Bearer " + auth.token }
+      );
+      setUserFollowing(following);
+
+      // update loadedPosts.user.follower.includes(auth.userId) status
+      const responseData = await sendRequest(
+        `http://localhost:4000/api/posts/${postId}`,
+        "GET",
+        null,
+        { Authorization: "Bearer " + auth.token }
+      );
+      const responsePostCreator = await sendRequest(
+        `http://localhost:4000/api/users/${responseData.post.creator}`,
+        "GET",
+        null,
+        { Authorization: "Bearer " + auth.token }
+      );
+      setLoadedUser(responsePostCreator.user);
+    } catch (err) {}
+  };
+
   if (isLoading) {
     return (
       <div className="center">
@@ -86,10 +125,24 @@ const PostDetail = () => {
           <LoadingSpinner />
         </div>
       )}
-      <h1 className="user-name">{auth.userName}</h1>
+      {loadedUser && (
+        <h1 className="user-name">
+          {loadedUser.name}{" "}
+          {auth.userId !== loadedUser._id && (
+            <Button follow onClick={userFollowingHandler}>
+              {(userFollowing && userFollowing.isFollowed) ||
+              loadedUser.follower.includes(auth.userId)
+                ? "Following"
+                : "Follow"}
+            </Button>
+          )}
+        </h1>
+      )}
 
       <div className="main-content">
-        {!isLoading && loadedPosts && <PostDetailContent item={loadedPosts} />}
+        {!isLoading && loadedPosts && loadedUser && (
+          <PostDetailContent item={loadedPosts} user={loadedUser} />
+        )}
 
         <div className="center">
           <form className="comment-form" onSubmit={commentSubmitHandler}>

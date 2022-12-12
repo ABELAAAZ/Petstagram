@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../../share/context/auth-context";
 import { useHttpClient } from "../../share/hooks/http-hook";
 import ErrorModal from "../../share/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../share/components/UIElements/LoadingSpinner";
 import Button from "../../share/components/FormElements/Button";
 import "./UserPosts.css";
 const UserPosts = () => {
@@ -13,7 +14,6 @@ const UserPosts = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const userId = useParams().userId;
-
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -50,13 +50,33 @@ const UserPosts = () => {
         { Authorization: "Bearer " + auth.token }
       );
       setUserFollowing(following);
+
+      const responseData = await sendRequest(
+        `http://localhost:4000/api/posts/user/${userId}`,
+        "GET",
+        null,
+        { Authorization: "Bearer " + auth.token }
+      );
+      setLoadedPosts(responseData);
     } catch (err) {}
   };
+
+  if (isLoading) {
+    return (
+      <div className="center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-
+      {isLoading && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
       {!isLoading && loadedPosts && (
         <div>
           <h1 className="user-name">
