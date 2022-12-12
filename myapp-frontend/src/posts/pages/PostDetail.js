@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useHttpClient } from "../../share/hooks/http-hook";
 import { AuthContext } from "../../share/context/auth-context";
 import ErrorModal from "../../share/components/UIElements/ErrorModal";
@@ -26,13 +26,13 @@ const PostDetail = () => {
     const fetchPosts = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:4000/api/posts/${postId}`,
+          `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}`,
           "GET",
           null,
           { Authorization: "Bearer " + auth.token }
         );
         const responseComments = await sendRequest(
-          `http://localhost:4000/api/comments/${postId}`,
+          `${process.env.REACT_APP_BACKEND_URL}/comments/${postId}`,
           "GET",
           null,
           { Authorization: "Bearer " + auth.token }
@@ -41,7 +41,7 @@ const PostDetail = () => {
         setLoadedComments(responseComments.comments);
 
         const responsePostCreator = await sendRequest(
-          `http://localhost:4000/api/users/${responseData.post.creator}`,
+          `${process.env.REACT_APP_BACKEND_URL}/users/${responseData.post.creator}`,
           "GET",
           null,
           { Authorization: "Bearer " + auth.token }
@@ -51,7 +51,7 @@ const PostDetail = () => {
       } catch (err) {}
     };
     fetchPosts();
-  }, [sendRequest, postId,flag]);
+  }, [sendRequest, postId,flag,auth.token]);
 
   const [formState, inputHandler] = useForm(
     {
@@ -63,12 +63,12 @@ const PostDetail = () => {
     false
   );
 
-  const history = useHistory({ forceRefresh: true });
+  
   const commentSubmitHandler = async (event) => {
     event.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:4000/api/posts/${postId}/comment`,
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}/comment`,
         "POST",
         JSON.stringify({
           comment: formState.inputs.comment.value,
@@ -87,7 +87,7 @@ const PostDetail = () => {
     event.preventDefault();
     try {
       const following = await sendRequest(
-        `http://localhost:4000/api/users/${auth.userId}/follow/${loadedUser._id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/${auth.userId}/follow/${loadedUser._id}`,
         "PATCH",
         null,
         { Authorization: "Bearer " + auth.token }
@@ -96,13 +96,13 @@ const PostDetail = () => {
 
       // update loadedPosts.user.follower.includes(auth.userId) status
       const responseData = await sendRequest(
-        `http://localhost:4000/api/posts/${postId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}`,
         "GET",
         null,
         { Authorization: "Bearer " + auth.token }
       );
       const responsePostCreator = await sendRequest(
-        `http://localhost:4000/api/users/${responseData.post.creator}`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/${responseData.post.creator}`,
         "GET",
         null,
         { Authorization: "Bearer " + auth.token }

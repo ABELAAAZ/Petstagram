@@ -27,7 +27,7 @@ const PostDetailContent = (props) => {
     setShowConfirmModal(false);
     try {
       await sendRequest(
-        `http://localhost:4000/api/posts/${props.item.id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${props.item.id}`,
         "DELETE",
         null,
         { Authorization: "Bearer " + auth.token }

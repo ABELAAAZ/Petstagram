@@ -39,7 +39,7 @@ const UpdatePost = () => {
     const fetchPosts = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:4000/api/posts/${postId}`,
+          `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}`,
           "GET",
           null,
           { Authorization: "Bearer " + auth.token }
@@ -69,7 +69,7 @@ const UpdatePost = () => {
     event.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:4000/api/posts/${postId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}`,
         "PATCH",
         JSON.stringify({
           title: formState.inputs.title.value,

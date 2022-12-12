@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useHistory, Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from 'moment';
 import { useHttpClient } from "../../share/hooks/http-hook";
 import { AuthContext } from "../../share/context/auth-context";
@@ -12,14 +12,13 @@ const CommentItem = (props) => {
   const creator = props.creator;
   const auth = useContext(AuthContext);
   
-  const history = useHistory({ forceRefresh: true });
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const {error, sendRequest, clearError } = useHttpClient();
   const [commentUserName, setcommentUserName] = useState();
 
   const confirmDeleteHandler = async () => {
     try {
       await sendRequest(
-        `http://localhost:4000/api/comments/${props.postId}/${comment.id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/comments/${props.postId}/${comment.id}`,
         "DELETE",
         null,
         { Authorization: "Bearer " + auth.token }
@@ -33,7 +32,7 @@ const CommentItem = (props) => {
     const getUserName = async () => {
       try {
         const commentUser = await sendRequest(
-          `http://localhost:4000/api/users/${creator}`,
+          `${process.env.REACT_APP_BACKEND_URL}/users/${creator}`,
           "GET",
           null,
           { Authorization: "Bearer " + auth.token }
@@ -42,7 +41,7 @@ const CommentItem = (props) => {
       } catch (err) {}
     };
     getUserName();
-  }, [sendRequest, creator]);
+  }, [sendRequest, creator,auth.token]);
 
   return (
     <React.Fragment>

@@ -9,7 +9,6 @@ const comment = require("../models/comment");
 
 // make a post
 const createComment = async (req, res, next) => {
-  // http://localhost:4000/api/posts/${props.postId}/comment
   const { comment } = req.body;
   const createdComment = new Comment({
     creator: req.userData.userId,

@@ -13,7 +13,6 @@ import ErrorModal from "../../share/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../share/components/UIElements/LoadingSpinner";
 import ImageUpload from "../../share/components/FormElements/ImageUpload";
 import "./PostForm.css";
-import CloudinaryUploadWidget from "../../share/components/FormElements/CloudinaryUploadWidget";
 
 const NewPost = () => {
   console.log("enter new post");
@@ -52,7 +51,7 @@ const NewPost = () => {
       formData.append("address", formState.inputs.address.value);
       formData.append("image", formState.inputs.image.value);
       console.log("frontend,formadata image", formState.inputs.image.value);
-      await sendRequest(`http://localhost:4000/api/posts`, "POST", formData, {
+      await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/posts`, "POST", formData, {
         Authorization: "Bearer " + auth.token,
       });
       history.push(`/${auth.userId}/posts`);

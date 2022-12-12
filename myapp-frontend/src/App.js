@@ -1,6 +1,6 @@
 
 import './App.css';
-import React, { Suspense, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch, useHistory } from 'react-router-dom';
 import Users from './user/pages/Users';
 import NewPost from './posts/pages/NewPost';
@@ -13,7 +13,7 @@ import Auth from './user/pages/Auth';
 import MainNavigation from './share/components/Navigation/MainNavigation';
 import { AuthContext } from './share/context/auth-context';
 import { useAuth } from './share/hooks/auth-hook';
-import LoadingSpinner from './share/components/UIElements/LoadingSpinner';
+
 
 const App = () => {
   const { token, login, logout, userId, userName } = useAuth();

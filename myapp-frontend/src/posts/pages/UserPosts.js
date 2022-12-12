@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import PostList from "../components/PostList";
-import { Redirect, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { AuthContext } from "../../share/context/auth-context";
 import { useHttpClient } from "../../share/hooks/http-hook";
 import Avatar from '../../share/components/UIElements/Avatar';
@@ -24,7 +24,7 @@ const UserPosts = () => {
     const fetchPosts = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:4000/api/posts/user/${userId}`,
+          `${process.env.REACT_APP_BACKEND_URL}/posts/user/${userId}`,
           "GET",
           null,
           { Authorization: "Bearer " + auth.token }
@@ -37,7 +37,7 @@ const UserPosts = () => {
       } catch (err) {}
     };
     fetchPosts();
-  }, [sendRequest, userId]);
+  }, [sendRequest, userId,auth.token,auth.userId]);
 
   const postDeletedHandler = (deletedPostId) => {
     setLoadedPosts((prevPosts) =>
@@ -49,7 +49,7 @@ const UserPosts = () => {
     event.preventDefault();
     try {
       const following = await sendRequest(
-        `http://localhost:4000/api/users/${auth.userId}/follow/${userId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/${auth.userId}/follow/${userId}`,
         "PATCH",
         null,
         { Authorization: "Bearer " + auth.token }
@@ -57,7 +57,7 @@ const UserPosts = () => {
       setUserFollowing(following);
 
       const responseData = await sendRequest(
-        `http://localhost:4000/api/posts/user/${userId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/posts/user/${userId}`,
         "GET",
         null,
         { Authorization: "Bearer " + auth.token }

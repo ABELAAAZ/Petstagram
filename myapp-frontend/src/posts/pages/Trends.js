@@ -1,4 +1,4 @@
-import React, { useEffect,useState ,useContext, useMemo} from 'react';
+import React, { useEffect,useState ,useContext} from 'react';
 import PostList from '../components/PostList';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../share/context/auth-context';
@@ -20,7 +20,7 @@ const UserPosts = () => {
         const fetchPosts = async () => {
             try {
                 const responseData = await sendRequest(
-                    `http://localhost:4000/api/posts`,'GET', null, { Authorization: 'Bearer ' + auth.token }
+                    `${process.env.REACT_APP_BACKEND_URL}/posts`,'GET', null, { Authorization: 'Bearer ' + auth.token }
                 );
                 setLoadedPosts(responseData.post);
             } catch (err) {}

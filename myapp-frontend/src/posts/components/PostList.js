@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
-import { Redirect } from "react-router-dom";
-import { AuthContext } from "../../share/context/auth-context";
+import React from "react";
 import Card from '../../share/components/UIElements/Card';
 import PostItem from './PostItem'
 import Button from '../../share/components/FormElements/Button';
 import './PostList.css';
 const PostList = props => {
-  const auth = useContext(AuthContext);
+  
   if (props.items.length === 0) {
     return (
       <div className="post-list center">

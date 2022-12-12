@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const secrets = require('../config/secrets');
 const Post = require("../models/post");
 // get all users
 const getUsers = async (req, res, next) => {
@@ -99,7 +100,7 @@ const signup = async (req, res, next) => {
         email: creatUser.email,
         userName: creatUser.name,
       },
-      "supersecret_dont_share",
+      secrets.JWT_key,
       { expiresIn: "1h" }
     );
   } catch (err) {
@@ -144,7 +145,7 @@ const login = async (req, res, next) => {
         email: existedUser.email,
         userName: existedUser.name,
       },
-      "supersecret_dont_share",
+      secrets.JWT_key,
       { expiresIn: "1h" }
     );
   } catch (err) {
