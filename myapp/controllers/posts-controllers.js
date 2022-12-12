@@ -11,7 +11,7 @@ const { default: mongoose } = require("mongoose");
 const getPosts = async (req, res, next) => {
   let posts;
   try {
-    posts = await Post.find({}, "-password");
+    posts = await Post.find({}, "-password").sort({"dateCreated": -1} )
   } catch (err) {
     const error = new HttpError("fetching failed, try again", 500);
     return next(error);
@@ -42,7 +42,7 @@ const getpostsByUserId = async (req, res, next) => {
   const userId = req.params.uid;
   let posts, user;
   try {
-    posts = await Post.find({ creator: userId });
+    posts = await Post.find({ creator: userId }).sort({"dateCreated": -1} );
     user = await User.findById(userId);
   } catch (err) {
     const error = new HttpError("Fetching went wrong, try again", 500);
