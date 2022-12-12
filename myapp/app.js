@@ -9,10 +9,9 @@ const app = express();
 const postsRoutes = require('./routes/posts-routes');
 const usersRoutes = require('./routes/users-routes');
 const commentsRoutes = require('./routes/comments-routes');
+const fileDelete = require('./middleware/file-delete');
 const HttpError = require('./models/http-errors');
 const path =require('path');
-
-
 
 
 // Use environment defined port or 4000
@@ -37,9 +36,7 @@ app.use(bodyParser.json());
 
 
 
-
-
-app.use('/uploads/images', express.static(path.join('uploads', 'images')));
+//app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 
 app.use('/api/posts', postsRoutes);  
@@ -53,9 +50,7 @@ app.use((req, res, next) => {
 
 app.use((error, req, res, next) => {
     if(req.file){
-        fs.unlink(req.file.path,err=>{
-            console.log(err)
-        })
+        fileDelete(req.file.location);
     }
 
     if (res.headerSent) {

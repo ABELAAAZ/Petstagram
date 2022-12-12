@@ -78,7 +78,7 @@ const signup = async (req, res, next) => {
     name,
     email,
     password: password,
-    image: req.file.path,
+    image: req.file.location,
     posts: [],
     following: [],
     follower: [],

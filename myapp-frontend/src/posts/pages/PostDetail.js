@@ -17,6 +17,7 @@ const PostDetail = () => {
   const [loadedComments, setLoadedComments] = useState();
   const [userFollowing, setUserFollowing] = useState();
   const [loadedUser, setLoadedUser] = useState();
+  const [flag, setFlag] = useState(false);
   const postId = useParams().postId;
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -50,7 +51,7 @@ const PostDetail = () => {
       } catch (err) {}
     };
     fetchPosts();
-  }, [sendRequest, postId]);
+  }, [sendRequest, postId,flag]);
 
   const [formState, inputHandler] = useForm(
     {
@@ -62,8 +63,7 @@ const PostDetail = () => {
     false
   );
 
-  const history = useHistory();
-
+  const history = useHistory({ forceRefresh: true });
   const commentSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -78,7 +78,8 @@ const PostDetail = () => {
           Authorization: "Bearer " + auth.token,
         }
       );
-      history.push(`/${auth.userId}/posts`, { update: true });
+      flag===true? setFlag(false) : setFlag(true)
+    
     } catch (err) {}
   };
 
@@ -109,6 +110,11 @@ const PostDetail = () => {
       setLoadedUser(responsePostCreator.user);
     } catch (err) {}
   };
+
+  const controlCommentHandler = async (event) => {
+    flag===true? setFlag(false) : setFlag(true)
+  }
+
 
   if (isLoading) {
     return (
@@ -164,7 +170,7 @@ const PostDetail = () => {
 
         <div className="center">
           {!isLoading && loadedPosts && (
-            <CommentList postId={postId} item={loadedComments} />
+            <CommentList postId={postId} item={loadedComments} delete={controlCommentHandler}/>
           )}
         </div>
       </div>

@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 const getCoordsForAddress = require("../util/location");
 const Post = require("../models/post");
 const User = require("../models/user");
+const fileDelete = require('../middleware/file-delete');
 const fs = require("fs");
 const { default: mongoose } = require("mongoose");
 
@@ -76,13 +77,13 @@ const createPost = async (req, res, next) => {
     const error = new HttpError("coordinate failed", 422);
     return next(error);
   }
-
+  console.log('image',req.file.location)
   const createdPost = new Post({
     title,
     description,
     address,
     location: coordinates,
-    image: req.file.path,
+    image: req.file.location,
     creator: req.userData.userId,
     comments: [],
   });
@@ -195,9 +196,13 @@ const deletePostbyId = async (req, res, next) => {
     );
     return next(error);
   }
-  fs.unlink(imagePath, (err) => {
-    console.log(err);
-  });
+
+  
+  fileDelete(imagePath);
+
+  //fs.unlink(imagePath, (err) => {
+    //console.log(err);
+  //});
   res.status(200).json({ message: "delete successful" });
 };
 
