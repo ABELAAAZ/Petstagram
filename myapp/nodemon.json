@@ -1,0 +1,10 @@
+{
+"env":{
+    "mongo_connection" : "mongodb+srv://IMasters:IMasters@project.bqn7gbx.mongodb.net/petstagram?retryWrites=true&w=majority",
+    "google_map_api_key":"AIzaSyAdJ0OpfnmXSy1IWHXlQy-KNyXB-RPDOfs",
+    "JWT_key":"supersecret_dont_share",
+    "AWS_SECRETACCESSKEY":"2LS731B1q0mcZJji/zTUwiLjh9twC/0ExspCA7up",
+    "AWS_ACCESSKEYID":"AKIAQBBXVJZMLAKPNP72",
+    "REGION":"us-east-2"
+}
+}

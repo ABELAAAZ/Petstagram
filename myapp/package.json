@@ -3,15 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec node app.js"
+    "start": " nodemon node app.js"
   },
   "author": "",
-  "babel": {
-    "presets": [
-      "env",
-      "react"
-    ]
-  },
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1272.0",
@@ -27,5 +21,8 @@
     "multer-s3": "^2.10.0",
     "nodemon": "^1.11.0",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
