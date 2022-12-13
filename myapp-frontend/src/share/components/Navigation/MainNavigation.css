@@ -13,6 +13,11 @@
   justify-content: space-around;
 }
 
+header.sticky {
+  position: fixed;
+  height: 12rem;
+}
+
 main {
   margin-top: 5rem;
 }
